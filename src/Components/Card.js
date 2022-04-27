@@ -28,7 +28,6 @@ class Card extends React.Component {
 
   render() {
     const { lista, query } = this.state;
-    console.log(lista);
     return (
       <div>
         <label htmlFor="input">
