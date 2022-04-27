@@ -1,7 +1,7 @@
 import React from 'react';
-import Card from '../Components/Card';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../services/api';
+import Card from '../Components/Card';
 
 class Home extends React.Component {
   constructor() {
