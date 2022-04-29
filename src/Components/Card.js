@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Card extends React.Component {
@@ -20,7 +21,7 @@ class Card extends React.Component {
 
   onHandleClick = async () => {
     const { query } = this.state;
-    const returnAPI = await getProductsFromCategoryAndQuery(query);
+    const returnAPI = await getProductsFromCategoryAndQuery('', query);
     this.setState({
       lista: returnAPI.results,
     });
@@ -28,7 +29,6 @@ class Card extends React.Component {
 
   render() {
     const { lista, query } = this.state;
-    console.log(lista);
     return (
       <div>
         <label htmlFor="input">
@@ -48,7 +48,7 @@ class Card extends React.Component {
         >
           Enviar
         </button>
-        {lista === []
+        {lista.length === 0
           ? <p>Nenhum produto foi encontrado</p>
           : (
             lista.map((element) => (
@@ -58,7 +58,13 @@ class Card extends React.Component {
                   src={ element.thumbnail }
                   alt="imagem do produto"
                 />
-                <p>{ element.price }</p>
+                <p>{element.price}</p>
+                <Link
+                  data-testid="product-detail-link"
+                  to={ `/productdetails/${element.id}` }
+                >
+                  Detalhes
+                </Link>
               </div>
             ))
           )}
