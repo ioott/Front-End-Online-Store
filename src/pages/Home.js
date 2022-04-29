@@ -29,6 +29,19 @@ class Home extends React.Component {
     });
   }
 
+  callCategories = async () => {
+    const categoriesObj = await getCategories();
+    return categoriesObj.map((element) => (
+      <button
+        data-testid="category"
+        type="button"
+        key={ element.id }
+      >
+        { element.name }
+      </button>
+    ));
+  }
+
   render() {
     const { categories, products } = this.state;
     return (
@@ -58,7 +71,14 @@ class Home extends React.Component {
               src={ element.thumbnail }
               alt="imagem do produto"
             />
-            <p>{ element.price }</p>
+            <p>{element.price}</p>
+            <Link
+              data-testid="product-detail-link"
+              to={ `/productdetails/${element.id}` }
+            >
+              Detalhes
+            </Link>
+
           </div>
         ))}
       </div>
