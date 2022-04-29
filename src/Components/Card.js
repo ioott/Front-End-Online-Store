@@ -9,6 +9,7 @@ class Card extends React.Component {
     this.state = {
       query: '',
       lista: [],
+      productsToSend: [],
     };
   }
 
@@ -25,6 +26,20 @@ class Card extends React.Component {
     this.setState({
       lista: returnAPI.results,
     });
+  }
+
+  sendToCart = ({ target }) => {
+    const productId = target.id;
+    this.setState((prevState) => ({
+      productsToSend: [...prevState.productsToSend, productId],
+    }), () => {
+      this.storeCart();
+    });
+  }
+
+  storeCart = () => {
+    const { productsToSend } = this.state;
+    localStorage.setItem('cart', JSON.stringify(productsToSend));
   }
 
   render() {
@@ -65,6 +80,15 @@ class Card extends React.Component {
                 >
                   Detalhes
                 </Link>
+                <button
+                  data-testid="product-add-to-cart"
+                  type="button"
+                  key={ element.id }
+                  id={ element.id }
+                  onClick={ this.sendToCart }
+                >
+                  Adicionar ao carrinho
+                </button>
               </div>
             ))
           )}
