@@ -78,6 +78,7 @@ class Home extends React.Component {
             >
               Detalhes
             </Link>
+
           </div>
         ))}
       </div>
