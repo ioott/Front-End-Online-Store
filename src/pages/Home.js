@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../Components/Card';
-// import ShoppingCard from './ShoppingCard';
 
 class Home extends React.Component {
   constructor() {
@@ -105,13 +104,6 @@ class Home extends React.Component {
           </div>
         ))}
         <div>{productsToSend}</div>
-        {/* <Route
-          path="/shoppingcard"
-          render={ (props) => (<ShoppingCard
-            { ... props }
-            productsToCart={ productsToSend }
-          />) }
-        /> */}
       </div>
 
     );

@@ -11,10 +11,14 @@ class ShoppingCard extends React.Component {
   }
 
   async componentDidMount() {
-    const products = await this.getProducts();
-    this.setState({
-      cartItens: products,
-    });
+    try {
+      const products = await this.getProducts();
+      this.setState({
+        cartItens: products,
+      });
+    } catch (err) {
+      console.log('erro');
+    }
   }
 
   getProducts = async () => {
@@ -30,7 +34,7 @@ class ShoppingCard extends React.Component {
     const { cartItens } = this.state;
     return (
       <div>
-        <h1>Seu Carrinho</h1>
+        <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>
         {cartItens.map((element) => (
           <div key={ element.id }>
             <h3 data-testid="shopping-cart-product-name">{ element.title }</h3>
