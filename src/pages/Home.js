@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../Components/Card';
+// import ShoppingCard from './ShoppingCard';
 
 class Home extends React.Component {
   constructor() {
@@ -10,6 +11,7 @@ class Home extends React.Component {
     this.state = {
       categories: [],
       products: [],
+      productsToSend: [],
     };
   }
 
@@ -22,7 +24,6 @@ class Home extends React.Component {
 
   onCategoryClick = async ({ target }) => {
     const query = target.id;
-    console.log(target);
     const productsObj = await getProductsFromCategoryAndQuery(query);
     this.setState({
       products: productsObj.results,
@@ -42,8 +43,22 @@ class Home extends React.Component {
     ));
   }
 
+  sendToCart = ({ target }) => {
+    const productId = target.id;
+    this.setState((prevState) => ({
+      productsToSend: [...prevState.productsToSend, productId],
+    }), () => {
+      this.storeCart();
+    });
+  }
+
+  storeCart = () => {
+    const { productsToSend } = this.state;
+    localStorage.setItem('cart', JSON.stringify(productsToSend));
+  }
+
   render() {
-    const { categories, products } = this.state;
+    const { categories, products, productsToSend } = this.state;
     return (
       <div>
         <p
@@ -78,9 +93,25 @@ class Home extends React.Component {
             >
               Detalhes
             </Link>
-
+            <button
+              data-testid="product-add-to-cart"
+              type="button"
+              key={ element.id }
+              id={ element.id }
+              onClick={ this.sendToCart }
+            >
+              Adicionar ao carrinho
+            </button>
           </div>
         ))}
+        <div>{productsToSend}</div>
+        {/* <Route
+          path="/shoppingcard"
+          render={ (props) => (<ShoppingCard
+            { ... props }
+            productsToCart={ productsToSend }
+          />) }
+        /> */}
       </div>
 
     );
