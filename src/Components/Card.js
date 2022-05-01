@@ -39,7 +39,11 @@ class Card extends React.Component {
 
   storeCart = () => {
     const { productsToSend } = this.state;
-    localStorage.setItem('cart', JSON.stringify(productsToSend));
+    if (productsToSend) {
+      localStorage.setItem('cart', JSON.stringify([...productsToSend, productsToSend]));
+    } else {
+      localStorage.setItem('cart', JSON.stringify(productsToSend));
+    }
   }
 
   render() {
