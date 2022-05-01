@@ -17,15 +17,6 @@ class ProductDetails extends React.Component {
     this.pegarProduto();
   }
 
-  storeCart = (cartProduct) => {
-    const storedProducts = JSON.parse(localStorage.getItem('cart'));
-    if (storedProducts) {
-      localStorage.setItem('cart', JSON.stringify([...storedProducts, cartProduct]));
-    } else {
-      localStorage.setItem('cart', JSON.stringify(cartProduct));
-    }
-  }
-
   pegarProduto = async () => {
     const { match: { params: { productId } } } = this.props;
     const product = await getProductsFromId(productId);
@@ -34,14 +25,12 @@ class ProductDetails extends React.Component {
     });
   }
 
-  addCartButton() {
-    const { lista } = this.state;
-    const { id } = lista;
+  addCartButton(cartProduct) {
     const items = JSON.parse(localStorage.getItem('cart'));
     if (items) {
-      localStorage.setItem('cart', JSON.stringify([...items, id]));
+      localStorage.setItem('cart', JSON.stringify([...items, cartProduct]));
     } else {
-      localStorage.setItem('cart', JSON.stringify([id]));
+      localStorage.setItem('cart', JSON.stringify([cartProduct]));
     }
   }
 
