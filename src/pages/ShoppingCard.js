@@ -34,18 +34,19 @@ class ShoppingCard extends React.Component {
     const { cartItens } = this.state;
     return (
       <div>
-        <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>
-        {cartItens.map((element) => (
-          <div key={ element.id }>
-            <h3 data-testid="shopping-cart-product-name">{ element.title }</h3>
-            <h4 data-testid="shopping-cart-product-quantity">1</h4>
-            <img
-              src={ element.thumbnail }
-              alt="imagem do produto"
-            />
-            <p>{element.price}</p>
-          </div>
-        ))}
+        { cartItens.length === 0
+          ? <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>
+          : (cartItens.map((element) => (
+            <div key={ element.id }>
+              <h3 data-testid="shopping-cart-product-name">{ element.title }</h3>
+              <h4 data-testid="shopping-cart-product-quantity">1</h4>
+              <img
+                src={ element.thumbnail }
+                alt="imagem do produto"
+              />
+              <p>{element.price}</p>
+            </div>
+          )))}
       </div>
     );
   }
