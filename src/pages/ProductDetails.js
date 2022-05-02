@@ -50,7 +50,7 @@ class ProductDetails extends React.Component {
           type="button"
           key={ lista.id }
           id={ lista.id }
-          onClick={ () => this.addCartButton(lista) }
+          onClick={ () => this.addCartButton(lista.id) }
         >
           Adicionar ao carrinho
         </button>
