@@ -13,6 +13,13 @@ class Card extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const storedItens = JSON.parse(localStorage.getItem('cart'));
+    this.setState({
+      productsToSend: storedItens,
+    });
+  }
+
   onInputChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
@@ -39,11 +46,7 @@ class Card extends React.Component {
 
   storeCart = () => {
     const { productsToSend } = this.state;
-    if (productsToSend) {
-      localStorage.setItem('cart', JSON.stringify([...productsToSend, productsToSend]));
-    } else {
-      localStorage.setItem('cart', JSON.stringify(productsToSend));
-    }
+    localStorage.setItem('cart', JSON.stringify(productsToSend));
   }
 
   render() {
