@@ -16,10 +16,8 @@ class Home extends React.Component {
 
   componentDidMount = async () => {
     const categoriesObj = await getCategories();
-    const storedItens = JSON.parse(localStorage.getItem('cart'));
     this.setState({
       categories: categoriesObj,
-      productsToSend: storedItens,
     });
   }
 
@@ -59,7 +57,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { categories, products } = this.state;
+    const { categories, products, productsToSend } = this.state;
     return (
       <div>
         <p
@@ -67,6 +65,7 @@ class Home extends React.Component {
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <Card />
         <Link to="/ShoppingCard" data-testid="shopping-cart-button">compra</Link>
         {categories.map((element) => (
           <button
@@ -104,7 +103,7 @@ class Home extends React.Component {
             </button>
           </div>
         ))}
-        <Card />
+        <div>{productsToSend}</div>
       </div>
 
     );
